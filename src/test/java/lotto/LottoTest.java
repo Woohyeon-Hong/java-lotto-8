@@ -1,10 +1,12 @@
 package lotto;
 
+import lotto.model.Lotto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class LottoTest {
@@ -22,4 +24,16 @@ class LottoTest {
     }
 
     // TODO: 추가 기능 구현에 따른 테스트 코드 작성
+
+    @Test
+    void formatNumbers_로또_번호를_문자열_형식으로_반환한다() {
+        //given
+        Lotto lotto = new Lotto(List.of(8, 21, 23, 41, 42, 43));
+
+        //when
+        String formattedNumbers = lotto.formatNumbers();
+
+        //then
+        assertThat(formattedNumbers).isEqualTo("[8, 21, 23, 41, 42, 43]");
+    }
 }
