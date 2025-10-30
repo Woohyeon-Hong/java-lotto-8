@@ -16,5 +16,7 @@ public class LottoController {
     public void run() {
         outputView.printPurchaseAmountInputPrompt();
         int purchaseAmount = inputView.inputPurchaseAmount();
+        int lottoCount = purchaseAmount / 1000;
+        outputView.printLottoCount(lottoCount);
     }
 }
