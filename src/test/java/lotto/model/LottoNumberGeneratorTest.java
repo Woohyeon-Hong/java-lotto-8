@@ -13,7 +13,7 @@ class LottoNumberGeneratorTest {
     LottoNumberGenerator lottoNumberGenerator = new LottoNumberGenerator();
     
     @Test
-    void generateUniqueNumbers_서로_다른_6개의_수_반환() {
+    void generateUniqueNumbers_서로_다른_6개의_수를_반환한다() {
         //given && when
         List<Integer> numbers = lottoNumberGenerator.generateUniqueNumbers();
         

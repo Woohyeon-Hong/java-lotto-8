@@ -2,6 +2,9 @@ package lotto.view;
 
 import lotto.model.Lotto;
 
+/**
+ * 1. 출력 메시지 상수로 분리하기
+ */
 public class OutputView {
 
     public OutputView() {
@@ -17,5 +20,9 @@ public class OutputView {
 
     public void printLottoNumbers(Lotto lotto) {
         System.out.println(lotto.formatNumbers());
+    }
+
+    public void printWinningNumbersInputPrompt() {
+        System.out.println("\n당첨 번호를 입력해 주세요.");
     }
 }

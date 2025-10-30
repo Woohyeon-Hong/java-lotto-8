@@ -22,11 +22,11 @@
 
 ---
 
-- [ ]  당첨 번호를 입력받는다.
-    - [ ]  `IllegalArgumentException` : 자연수나 쉼표가 아닌 값이 입력된 경우
-    - [ ]  `IllegalArgumentException`: 숫자가 6개가 아닌 경우
-    - [ ]  `IllegalArgumentException` : 숫자가 1 ~ 45 사이의 값이 아닌 경우
-    - [ ]  `IllegalArgumentException` : 숫자가 서로 중복되는 경우
+- [x]  당첨 번호를 입력받는다.
+    - [x]  `IllegalArgumentException` : 자연수나 쉼표가 아닌 값이 입력된 경우
+    - [x]  `IllegalArgumentException`: 숫자가 6개가 아닌 경우
+    - [x]  `IllegalArgumentException` : 숫자가 1 ~ 45 사이의 값이 아닌 경우
+    - [x]  `IllegalArgumentException` : 숫자가 서로 중복되는 경우
 - [ ]  보너스 번호를 입력받는다.
     - [ ]  `IllegalArgumentException` : 자연수가 아닌 경우
     - [ ]  `IllegalArgumentException` : 숫자가 1 ~ 45 사이의 값이 아닌 경우

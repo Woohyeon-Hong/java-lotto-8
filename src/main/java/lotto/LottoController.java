@@ -33,5 +33,8 @@ public class LottoController {
             outputView.printLottoNumbers(lotto);
             lottos.add(lotto);
         }
+
+        outputView.printWinningNumbersInputPrompt();
+        List<Integer> winningNumbers = inputView.inputWinningNumbers();
     }
 }
