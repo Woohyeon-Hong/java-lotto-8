@@ -6,9 +6,9 @@
 
 ---
 
-- [ ]  로또 구입 금액을 입력 받는다.
-    - [ ]  `IllegalArgumentException` : 자연수가 아닌 경우
-    - [ ]  `IllegalArgumentException` : 1000의 배수가 아닌 경우
+- [x]  로또 구입 금액을 입력 받는다.
+    - [x]  `IllegalArgumentException` : 자연수가 아닌 경우
+    - [x]  `IllegalArgumentException` : 1000의 배수가 아닌 경우
 - [ ]  발행 할 로또 수량을 계산하고 출력한다.
     - [ ]  구입 금액을 1,000으로 나누어 로또 개수를 계산한다.
     - [ ]  계산된 로또 수량을 출력한다.
