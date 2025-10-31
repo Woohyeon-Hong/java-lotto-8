@@ -25,30 +25,28 @@ public class InputView {
         return purchaseAmount;
     }
 
-    public List<Integer> inputWinningNumbers() {
+    public List<Integer> inputLottoNumbers() {
         String numbersInput = Console.readLine();
         String[] splits = numbersInput.split(",");
 
-        List<Integer> winningNumbers = Arrays.stream(splits)
+        List<Integer> lottoNumbers = Arrays.stream(splits)
                 .map(String::trim)
                 .map(this::parseInteger)
                 .toList();
 
-        validateLottoNumberCount(winningNumbers);
-        validateUniqueLottoNumbers(winningNumbers);
+        validateLottoNumberCount(lottoNumbers);
+        validateUniqueLottoNumbers(lottoNumbers);
 
-        winningNumbers.forEach(this::validateLottoNumberRange);
+        lottoNumbers.forEach(this::validateLottoNumberRange);
 
-
-
-        return winningNumbers;
+        return lottoNumbers;
     }
 
-    public int inputBonusNumber(List<Integer> winningNumbers) {
+    public int inputBonusNumber(List<Integer> lottoNumbers) {
         String numberInput = Console.readLine();
         int number = parseInteger(numberInput);
         validateLottoNumberRange(number);
-        validateBonusNumberNotInWinningNumbers(winningNumbers, number);
+        validateBonusNumberNotInWinningNumbers(lottoNumbers, number);
         return number;
     }
 

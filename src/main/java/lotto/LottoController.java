@@ -1,9 +1,12 @@
 package lotto;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import lotto.model.Lotto;
-import lotto.model.LottoNumberGenerator;
+import lotto.model.LottoGenerator;
+import lotto.model.LottoStatisticsService;
+import lotto.model.Rank;
+import lotto.model.WinningNumbers;
 import lotto.view.InputView;
 import lotto.view.OutputView;
 
@@ -24,20 +27,19 @@ public class LottoController {
         int lottoCount = purchaseAmount / 1000;
         outputView.printLottoCount(lottoCount);
 
-        LottoNumberGenerator lottoNumberGenerator = new LottoNumberGenerator();
-        ArrayList<Lotto> lottos = new ArrayList<>();
+        LottoGenerator lottoGenerator = new LottoGenerator();
 
-        for (int i = 0; i < lottoCount; i++) {
-            List<Integer> numbers = lottoNumberGenerator.generateUniqueNumbers();
-            Lotto lotto = new Lotto(numbers);
-            outputView.printLottoNumbers(lotto);
-            lottos.add(lotto);
-        }
+        List<Lotto> lottos = lottoGenerator.generateLottos(lottoCount);
 
         outputView.printWinningNumbersInputPrompt();
-        List<Integer> winningNumbers = inputView.inputWinningNumbers();
+        List<Integer> lottoNumbers = inputView.inputLottoNumbers();
 
         outputView.printBonusNumberInputPrompt();
-        inputView.inputBonusNumber(winningNumbers);
+        int bonusNumber = inputView.inputBonusNumber(lottoNumbers);
+
+        WinningNumbers winningNumbers = new WinningNumbers(lottoNumbers, bonusNumber);
+
+        LottoStatisticsService lottoStatisticsService = new LottoStatisticsService();
+        Map<Rank, Long> rankCounts = lottoStatisticsService.summarize(winningNumbers, lottos);
     }
 }

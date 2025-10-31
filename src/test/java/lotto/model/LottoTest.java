@@ -1,6 +1,6 @@
 package lotto.model;
 
-import lotto.model.Lotto;
+import java.util.ArrayList;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -35,5 +35,42 @@ class LottoTest {
 
         //then
         assertThat(formattedNumbers).isEqualTo("[8, 21, 23, 41, 42, 43]");
+    }
+
+    @Test
+    void countMatchingNumbers_당첨번호와_일치돠는_개수를_반환한다() {
+        //given
+        List<Integer> winningNumbers = List.of(1, 2, 3, 4, 5, 6);
+
+        List<Lotto> lottos = List.of(
+                new Lotto(List.of(1, 10, 11, 12, 13, 14)),     // 1 개 일치
+                new Lotto(List.of(1, 2, 11, 12, 13, 14)),      // 2 개 일치
+                new Lotto(List.of(1, 2, 3, 12, 13, 14)),       // 3 개 일치
+                new Lotto(List.of(1, 2, 3, 4, 13, 14)),        // 4 개 일치
+                new Lotto(List.of(1, 2, 3, 4, 5, 14)),         // 5 개 일치
+                new Lotto(List.of(1, 2, 3, 4, 5, 6))           // 6 개 일치
+        );
+
+        //when
+        List<Integer> results = new ArrayList<Integer>();
+        lottos.forEach(lotto -> results.add(lotto.countMatchingNumbers(winningNumbers)));
+
+        //then
+        for (int i = 1; i <= 6; i++) {
+            assertThat(results.get(i - 1)).isEqualTo(i);
+        }
+    }
+
+    @Test
+    void hasBonusNumber_보너스_번호가_포함되면_True를_반환한다() {
+        //given
+        int bonusNumber = 1;
+        Lotto includingBonusNumber = new Lotto(List.of(1,2,3,4,5,6));
+
+        //when
+        boolean hasBonus = includingBonusNumber.hasBonusNumber(bonusNumber);
+
+        //then
+        assertThat(hasBonus).isTrue();
     }
 }
