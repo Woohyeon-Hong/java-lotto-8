@@ -1,6 +1,9 @@
 package lotto.view;
 
+import java.util.List;
+import java.util.Map.Entry;
 import lotto.model.Lotto;
+import lotto.model.Rank;
 
 /**
  * 1. 출력 메시지 상수로 분리하기
@@ -18,8 +21,10 @@ public class OutputView {
         System.out.println("\n" + lottoCount + "개를 구매했습니다.");
     }
 
-    public void printLottoNumbers(Lotto lotto) {
-        System.out.println(lotto.formatNumbers());
+    public void printLottos(List<Lotto> lottos) {
+        for (Lotto lotto : lottos) {
+            System.out.println(lotto.formatNumbers());
+        }
     }
 
     public void printWinningNumbersInputPrompt() {
@@ -28,5 +33,20 @@ public class OutputView {
 
     public void printBonusNumberInputPrompt() {
         System.out.println("\n보너스 번호를 입력해 주세요.");
+    }
+
+    public void printLottoStatistics(List<Entry<Rank, Long>> rankCounts) {
+        for (Entry<Rank, Long> rankCount : rankCounts) {
+            Rank rank = rankCount.getKey();
+            Long count = rankCount.getValue();
+
+            if (rank == Rank.NONE) continue;
+
+            System.out.println(rank.getMatchingCountMessage()  +  " (" + rank.getPrizeMessage() + ") - " + count + "개");
+        }
+    }
+
+    public void printRateOfReturn(double rateOfReturn) {
+        System.out.println("총 수익률은 " + rateOfReturn + "%입니다.");
     }
 }

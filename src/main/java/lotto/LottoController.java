@@ -2,9 +2,10 @@ package lotto;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import lotto.model.Lotto;
 import lotto.model.LottoGenerator;
-import lotto.model.LottoStatisticsService;
+import lotto.model.LottoStatistics;
 import lotto.model.Rank;
 import lotto.model.WinningNumbers;
 import lotto.view.InputView;
@@ -21,6 +22,7 @@ public class LottoController {
     }
 
     public void run() {
+
         outputView.printPurchaseAmountInputPrompt();
         int purchaseAmount = inputView.inputPurchaseAmount();
 
@@ -30,6 +32,7 @@ public class LottoController {
         LottoGenerator lottoGenerator = new LottoGenerator();
 
         List<Lotto> lottos = lottoGenerator.generateLottos(lottoCount);
+        outputView.printLottos(lottos);
 
         outputView.printWinningNumbersInputPrompt();
         List<Integer> lottoNumbers = inputView.inputLottoNumbers();
@@ -39,7 +42,12 @@ public class LottoController {
 
         WinningNumbers winningNumbers = new WinningNumbers(lottoNumbers, bonusNumber);
 
-        LottoStatisticsService lottoStatisticsService = new LottoStatisticsService();
-        Map<Rank, Long> rankCounts = lottoStatisticsService.summarize(winningNumbers, lottos);
+        LottoStatistics lottoStatistics = new LottoStatistics(winningNumbers, lottos, purchaseAmount);
+        Map<Rank, Long> rankCounts = lottoStatistics.summarize();
+        List<Entry<Rank, Long>> sortedRankedCounts = lottoStatistics.sortByWinningCountDescThenRankDesc(rankCounts);
+        outputView.printLottoStatistics(sortedRankedCounts);
+
+        double rateOfReturn = lottoStatistics.calculateRateOfReturn(rankCounts);
+        outputView.printRateOfReturn(rateOfReturn);
     }
 }
