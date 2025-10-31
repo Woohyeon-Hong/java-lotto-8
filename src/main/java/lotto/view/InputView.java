@@ -44,6 +44,20 @@ public class InputView {
         return winningNumbers;
     }
 
+    public int inputBonusNumber(List<Integer> winningNumbers) {
+        String numberInput = Console.readLine();
+        int number = parseInteger(numberInput);
+        validateLottoNumberRange(number);
+        validateBonusNumberNotInWinningNumbers(winningNumbers, number);
+        return number;
+    }
+
+    public void validateBonusNumberNotInWinningNumbers(List<Integer> winningNumbers, int number) {
+        if (winningNumbers.contains(number)) {
+            throw new IllegalArgumentException("입력하신 보너스 번호가 이미 당첨번호에 포함돼 있습니다.");
+        }
+    }
+
     public int parseInteger(String numberInput) {
         int purchaseAmount;
 

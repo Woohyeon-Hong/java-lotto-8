@@ -27,10 +27,10 @@
     - [x]  `IllegalArgumentException`: 숫자가 6개가 아닌 경우
     - [x]  `IllegalArgumentException` : 숫자가 1 ~ 45 사이의 값이 아닌 경우
     - [x]  `IllegalArgumentException` : 숫자가 서로 중복되는 경우
-- [ ]  보너스 번호를 입력받는다.
-    - [ ]  `IllegalArgumentException` : 자연수가 아닌 경우
-    - [ ]  `IllegalArgumentException` : 숫자가 1 ~ 45 사이의 값이 아닌 경우
-    - [ ]  `IllegalArgumentException` : 당첨 번호와 중복되는 경우
+- [x]  보너스 번호를 입력받는다.
+    - [x]  `IllegalArgumentException` : 자연수가 아닌 경우
+    - [x]  `IllegalArgumentException` : 숫자가 1 ~ 45 사이의 값이 아닌 경우
+    - [x]  `IllegalArgumentException` : 당첨 번호와 중복되는 경우
 - [ ]  당첨 결과를 판정한다.
     - [ ]  발행된 각 로또 번호를 당첨 번호 및 보너스 번호와 비교한다.
     - [ ]  일치하는 숫자의 개수를 계산한다.

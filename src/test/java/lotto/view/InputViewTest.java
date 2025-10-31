@@ -105,4 +105,16 @@ class InputViewTest {
                 inputView.validateLottoNumberRange(outOfRangeNumber))
                 .isInstanceOf(IllegalArgumentException.class);
     }
+
+    @Test
+    void validateBonusNumberNotInWinningNumbers_당첨번호에_포함된_번호가_입력되면_예외가_발생한다() {
+        //given
+        List<Integer> winningNumbers = List.of(1,2,3,4,5,6);
+        int bonusNumber = 1;
+
+        //when && then
+        assertThatThrownBy(() ->
+                inputView.validateBonusNumberNotInWinningNumbers(winningNumbers, bonusNumber))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
 }
