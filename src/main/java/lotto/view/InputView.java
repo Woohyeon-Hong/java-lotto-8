@@ -10,9 +10,10 @@ import java.util.List;
  * TODO
  * 1. Validator, Parser 분리하기
  * 2. 예외 메시지 상수로 분리하기
- * 3. split 구분자 상수로 분리하기
  */
 public class InputView {
+
+    private static final String LOTTO_NUMBER_DELIMITER = ",";
 
 
     public InputView() {
@@ -27,7 +28,7 @@ public class InputView {
 
     public List<Integer> inputLottoNumbers() {
         String numbersInput = Console.readLine();
-        String[] splits = numbersInput.split(",");
+        String[] splits = numbersInput.split(LOTTO_NUMBER_DELIMITER);
 
         List<Integer> lottoNumbers = Arrays.stream(splits)
                 .map(String::trim)
