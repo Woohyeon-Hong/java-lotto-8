@@ -2,8 +2,8 @@ package lotto;
 
 import java.util.List;
 import lotto.model.Lotto;
-import lotto.model.LottoGenerator;
-import lotto.model.LottoStatistics;
+import lotto.support.LottoGenerator;
+import lotto.support.LottoStatistics;
 import lotto.model.WinningNumbers;
 import lotto.view.InputView;
 import lotto.view.OutputView;

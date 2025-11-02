@@ -1,6 +1,6 @@
-package lotto.model;
+package lotto.support;
 
-import static lotto.model.LottoRules.ROUNDING_SCALE;
+import static lotto.support.LottoRules.ROUNDING_SCALE;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -8,8 +8,12 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import lotto.model.Lotto;
+import lotto.model.Rank;
+import lotto.model.WinningNumbers;
 
 public class LottoStatistics {
+
 
     private final WinningNumbers winningNumbers;
     private final List<Lotto> lottos;

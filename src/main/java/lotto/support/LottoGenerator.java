@@ -1,17 +1,16 @@
-package lotto.model;
-
-import static lotto.model.LottoRules.*;
+package lotto.support;
 
 import camp.nextstep.edu.missionutils.Randoms;
 import java.util.ArrayList;
 import java.util.List;
+import lotto.model.Lotto;
 
 public class LottoGenerator {
 
     private final int lottoCount;
 
     public LottoGenerator(int purchaseAmount) {
-        this.lottoCount = purchaseAmount / LOTTO_PRICE;
+        this.lottoCount = purchaseAmount / LottoRules.LOTTO_PRICE;
     }
 
     public int getLottoCount() {
@@ -29,6 +28,7 @@ public class LottoGenerator {
     }
 
     public List<Integer> generateUniqueNumbers() {
-        return Randoms.pickUniqueNumbersInRange(MIN_NUMBER, MAX_NUMBER, LOTTO_NUMBER_COUNT);
+        return Randoms.pickUniqueNumbersInRange(
+                LottoRules.MIN_NUMBER, LottoRules.MAX_NUMBER, LottoRules.LOTTO_NUMBER_COUNT);
     }
 }

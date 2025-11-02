@@ -1,6 +1,6 @@
 package lotto.view;
 
-import static lotto.model.LottoRules.*;
+import static lotto.support.LottoRules.*;
 
 import camp.nextstep.edu.missionutils.Console;
 import java.util.Arrays;
@@ -15,10 +15,6 @@ import java.util.List;
 public class InputView {
 
     private static final String LOTTO_NUMBER_DELIMITER = ",";
-
-    private static final int MIN_NUMBER = 1;
-    private static final int MAX_NUMBER = 45;
-    private static final int LOTTO_NUMBER_COUNT = 6;
 
 
     //예외 메시지

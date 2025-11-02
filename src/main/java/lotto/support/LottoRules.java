@@ -1,4 +1,4 @@
-package lotto.model;
+package lotto.support;
 
 public final class LottoRules {
 

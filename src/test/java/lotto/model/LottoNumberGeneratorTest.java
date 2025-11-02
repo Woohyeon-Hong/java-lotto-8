@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.HashSet;
 import java.util.List;
+import lotto.support.LottoGenerator;
 import org.junit.jupiter.api.Test;
 
 class LottoNumberGeneratorTest {
