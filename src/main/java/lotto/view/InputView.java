@@ -1,5 +1,7 @@
 package lotto.view;
 
+import static lotto.model.LottoRules.*;
+
 import camp.nextstep.edu.missionutils.Console;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -13,6 +15,11 @@ import java.util.List;
 public class InputView {
 
     private static final String LOTTO_NUMBER_DELIMITER = ",";
+
+    private static final int MIN_NUMBER = 1;
+    private static final int MAX_NUMBER = 45;
+    private static final int LOTTO_NUMBER_COUNT = 6;
+
 
     //예외 메시지
     public static final String DUPLICATE_BONUS_NUMBER_ERROR_MESSAGE =
@@ -44,32 +51,56 @@ public class InputView {
 
     public List<Integer> inputLottoNumbers() {
         String numbersInput = Console.readLine();
-        String[] splits = numbersInput.split(LOTTO_NUMBER_DELIMITER);
+        String[] rawNumbers = numbersInput.split(LOTTO_NUMBER_DELIMITER);
 
-        List<Integer> lottoNumbers = Arrays.stream(splits)
-                .map(String::trim)
-                .map(this::parseInteger)
-                .toList();
+        List<Integer> lottoNumbers = parseRawNumbers(rawNumbers);
 
-        validateLottoNumberCount(lottoNumbers);
-        validateUniqueLottoNumbers(lottoNumbers);
-
-        lottoNumbers.forEach(this::validateLottoNumberRange);
+        validateLottoNumbers(lottoNumbers);
 
         return lottoNumbers;
     }
 
     public int inputBonusNumber(List<Integer> lottoNumbers) {
         String numberInput = Console.readLine();
-        int number = parseInteger(numberInput);
-        validateLottoNumberRange(number);
-        validateBonusNumberNotInWinningNumbers(lottoNumbers, number);
-        return number;
+        int bonusNumber = parseInteger(numberInput);
+
+        validateBonusNumber(lottoNumbers, bonusNumber);
+
+        return bonusNumber;
     }
 
-    public void validateBonusNumberNotInWinningNumbers(List<Integer> winningNumbers, int number) {
-        if (winningNumbers.contains(number)) {
-            throw new IllegalArgumentException(DUPLICATE_BONUS_NUMBER_ERROR_MESSAGE);
+    public void validatePurchaseAmount(int purchaseAmount) {
+        validateNaturalNumber(purchaseAmount);
+        validateMultipleOfThousand(purchaseAmount);
+    }
+
+    private List<Integer> parseRawNumbers(String[] splits) {
+        return Arrays.stream(splits)
+                .map(String::trim)
+                .map(this::parseInteger)
+                .toList();
+    }
+
+    private void validateLottoNumbers(List<Integer> lottoNumbers) {
+        validateLottoNumberCount(lottoNumbers);
+        validateUniqueLottoNumbers(lottoNumbers);
+        lottoNumbers.forEach(this::validateLottoNumberRange);
+    }
+
+    private void validateBonusNumber(List<Integer> lottoNumbers, int number) {
+        validateLottoNumberRange(number);
+        validateBonusNumberNotInWinningNumbers(lottoNumbers, number);
+    }
+
+    private void validateNaturalNumber(int number) {
+        if (number <= 0) {
+            throw new IllegalArgumentException(NOT_NATURAL_NUMBER_ERROR_MESSAGE);
+        }
+    }
+
+    private void validateMultipleOfThousand(int purchaseAmount) {
+        if (purchaseAmount % LOTTO_PRICE != 0) {
+            throw new IllegalArgumentException(NOT_MULTIPLE_OF_THOUSAND_ERROR_MESSAGE);
         }
     }
 
@@ -85,38 +116,27 @@ public class InputView {
         return purchaseAmount;
     }
 
-    public void validatePurchaseAmount(int purchaseAmount) {
-        validateNaturalNumber(purchaseAmount);
-        validateMultipleOfThousand(purchaseAmount);
-    }
-
     public void validateLottoNumberCount(List<Integer> winningNumbers) {
-        if (winningNumbers.size() != 6) {
+        if (winningNumbers.size() != LOTTO_NUMBER_COUNT) {
             throw new IllegalArgumentException(INVALID_LOTTO_COUNT_ERROR_MESSAGE);
         }
     }
 
-    public void validateLottoNumberRange(int number) {
-        if (number > 45 || number < 1) {
-            throw new IllegalArgumentException(OUT_OF_RANGE_NUMBER_ERROR_MESSAGE);
-        }
-    }
-
     private void validateUniqueLottoNumbers(List<Integer> winningNumbers) {
-        if (new HashSet<Integer>(winningNumbers).size() != 6) {
+        if (new HashSet<Integer>(winningNumbers).size() != LOTTO_NUMBER_COUNT) {
             throw new IllegalArgumentException(DUPLICATE_LOTTO_NUMBER_ERROR_MESSAGE);
         }
     }
 
-    private void validateNaturalNumber(int number) {
-        if (number <= 0) {
-            throw new IllegalArgumentException(NOT_NATURAL_NUMBER_ERROR_MESSAGE);
+    public void validateLottoNumberRange(int number) {
+        if (number > MAX_NUMBER || number < MIN_NUMBER) {
+            throw new IllegalArgumentException(OUT_OF_RANGE_NUMBER_ERROR_MESSAGE);
         }
     }
 
-    private void validateMultipleOfThousand(int purchaseAmount) {
-        if (purchaseAmount % 1000 != 0) {
-            throw new IllegalArgumentException(NOT_MULTIPLE_OF_THOUSAND_ERROR_MESSAGE);
+    public void validateBonusNumberNotInWinningNumbers(List<Integer> winningNumbers, int number) {
+        if (winningNumbers.contains(number)) {
+            throw new IllegalArgumentException(DUPLICATE_BONUS_NUMBER_ERROR_MESSAGE);
         }
     }
 }
