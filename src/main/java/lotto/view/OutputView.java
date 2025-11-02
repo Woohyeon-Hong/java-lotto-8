@@ -43,7 +43,7 @@ public class OutputView {
 
             if (rank == Rank.NONE) continue;
 
-            System.out.println(rank.getMatchingCountMessage()  +  " (" + rank.getPrizeMessage() + ") - " + count + "개");
+            System.out.printf("%s (%,d원) - %d개\n", rank.getMatchingCountMessage(), rank.getPrize(), count);
         }
     }
 
