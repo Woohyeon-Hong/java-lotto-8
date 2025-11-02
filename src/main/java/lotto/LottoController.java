@@ -33,7 +33,7 @@ public class LottoController {
             LottoStatistics statistics = computeStatistics(winningNumbers, lottos, purchaseAmount);
             printLottoStatistics(statistics);
         } catch (IllegalArgumentException e) {
-            outputView.printerrorMessage(e.getMessage());
+            outputView.printErrorMessage(e.getMessage());
         }
 
     }

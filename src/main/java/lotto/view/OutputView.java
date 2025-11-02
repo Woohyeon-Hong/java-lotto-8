@@ -6,34 +6,36 @@ import lotto.model.Lotto;
 import lotto.model.LottoStatistics;
 import lotto.model.Rank;
 
-/**
- * 1. 출력 메시지 상수로 분리하기
- */
 public class OutputView {
+
+    private static final String PURCHASE_AMOUNT_INPUT_PROMPT_MESSAGE = "구입금액을 입력해 주세요.";
+    private static final String LOTTO_COUNT_RESULT_MESSAGE = "개를 구매했습니다.";
+    private static final String LOTTO_NUMBERS_INPUT_PROMPT_MESSAGE = "당첨 번호를 입력해 주세요.";
+    private static final String BONUS_NUMBER_INPUT_PROMPT_MESSAGE = "\n보너스 번호를 입력해 주세요.";
 
     public OutputView() {
     }
 
     public void printPurchaseAmountInputPrompt() {
-        System.out.println("구입금액을 입력해 주세요.");
+        System.out.println(PURCHASE_AMOUNT_INPUT_PROMPT_MESSAGE);
     }
 
     public void printLottoCount(int lottoCount) {
-        System.out.println("\n" + lottoCount + "개를 구매했습니다.");
+        System.out.println("\n" + lottoCount + LOTTO_COUNT_RESULT_MESSAGE);
     }
 
     public void printLottos(List<Lotto> lottos) {
-        for (Lotto lotto : lottos) {
-            System.out.println(lotto.formatNumbers());
-        }
+        lottos.stream()
+                .map(Lotto::formatNumbers)
+                .forEach(System.out::println);
     }
 
     public void printLottoNumbersInputPrompt() {
-        System.out.println("\n당첨 번호를 입력해 주세요.");
+        System.out.println(LOTTO_NUMBERS_INPUT_PROMPT_MESSAGE);
     }
 
     public void printBonusNumberInputPrompt() {
-        System.out.println("\n보너스 번호를 입력해 주세요.");
+        System.out.println(BONUS_NUMBER_INPUT_PROMPT_MESSAGE);
     }
 
     public void printLottoStatistics(LottoStatistics lottoStatistics) {
@@ -43,7 +45,10 @@ public class OutputView {
 
             if (rank == Rank.NONE) continue;
 
-            System.out.printf("%s (%,d원) - %d개\n", rank.getMatchingCountMessage(), rank.getPrize(), count);
+            System.out.printf("%s (%,d원) - %d개\n",
+                    rank.getMatchingCountMessage(),
+                    rank.getPrize(),
+                    count);
         }
     }
 
@@ -51,7 +56,7 @@ public class OutputView {
         System.out.printf("총 수익률은 %.1f%%입니다.\n", lottoStatistics.getRateOfReturn());
     }
 
-    public void printerrorMessage(String errorMessage) {
+    public void printErrorMessage(String errorMessage) {
         System.out.println(errorMessage);
     }
 }
