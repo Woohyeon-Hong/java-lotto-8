@@ -23,31 +23,37 @@ public class LottoController {
 
     public void run() {
 
+        try {
+            int purchaseAmount = requestPurchaseAmount();
+            LottoGenerator lottoGenerator = new LottoGenerator(purchaseAmount);
+            outputView.printLottoCount(lottoGenerator.getLottoCount());
+
+            List<Lotto> lottos = lottoGenerator.generateLottos();
+            outputView.printLottos(lottos);
+
+            outputView.printWinningNumbersInputPrompt();
+            List<Integer> lottoNumbers = inputView.inputLottoNumbers();
+
+            outputView.printBonusNumberInputPrompt();
+            int bonusNumber = inputView.inputBonusNumber(lottoNumbers);
+
+            WinningNumbers winningNumbers = new WinningNumbers(lottoNumbers, bonusNumber);
+
+            LottoStatistics lottoStatistics = new LottoStatistics(winningNumbers, lottos, purchaseAmount);
+            Map<Rank, Long> rankCounts = lottoStatistics.summarize();
+            List<Entry<Rank, Long>> sortedRankedCounts = lottoStatistics.sortByWinningCountDescThenRankDesc(rankCounts);
+            outputView.printLottoStatistics(sortedRankedCounts);
+
+            double rateOfReturn = lottoStatistics.calculateRateOfReturn(rankCounts);
+            outputView.printRateOfReturn(rateOfReturn);
+        } catch (IllegalArgumentException e) {
+            outputView.printerrorMessage(e.getMessage());
+        }
+
+    }
+
+    private int requestPurchaseAmount() {
         outputView.printPurchaseAmountInputPrompt();
-        int purchaseAmount = inputView.inputPurchaseAmount();
-
-        int lottoCount = purchaseAmount / 1000;
-        outputView.printLottoCount(lottoCount);
-
-        LottoGenerator lottoGenerator = new LottoGenerator();
-
-        List<Lotto> lottos = lottoGenerator.generateLottos(lottoCount);
-        outputView.printLottos(lottos);
-
-        outputView.printWinningNumbersInputPrompt();
-        List<Integer> lottoNumbers = inputView.inputLottoNumbers();
-
-        outputView.printBonusNumberInputPrompt();
-        int bonusNumber = inputView.inputBonusNumber(lottoNumbers);
-
-        WinningNumbers winningNumbers = new WinningNumbers(lottoNumbers, bonusNumber);
-
-        LottoStatistics lottoStatistics = new LottoStatistics(winningNumbers, lottos, purchaseAmount);
-        Map<Rank, Long> rankCounts = lottoStatistics.summarize();
-        List<Entry<Rank, Long>> sortedRankedCounts = lottoStatistics.sortByWinningCountDescThenRankDesc(rankCounts);
-        outputView.printLottoStatistics(sortedRankedCounts);
-
-        double rateOfReturn = lottoStatistics.calculateRateOfReturn(rankCounts);
-        outputView.printRateOfReturn(rateOfReturn);
+        return inputView.inputPurchaseAmount();
     }
 }

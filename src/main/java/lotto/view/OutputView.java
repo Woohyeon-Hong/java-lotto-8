@@ -49,4 +49,8 @@ public class OutputView {
     public void printRateOfReturn(double rateOfReturn) {
         System.out.println("총 수익률은 " + rateOfReturn + "%입니다.");
     }
+
+    public void printerrorMessage(String errorMessage) {
+        System.out.println(errorMessage);
+    }
 }
