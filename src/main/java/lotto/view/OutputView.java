@@ -3,6 +3,7 @@ package lotto.view;
 import java.util.List;
 import java.util.Map.Entry;
 import lotto.model.Lotto;
+import lotto.model.LottoStatistics;
 import lotto.model.Rank;
 
 /**
@@ -27,7 +28,7 @@ public class OutputView {
         }
     }
 
-    public void printWinningNumbersInputPrompt() {
+    public void printLottoNumbersInputPrompt() {
         System.out.println("\n당첨 번호를 입력해 주세요.");
     }
 
@@ -35,8 +36,8 @@ public class OutputView {
         System.out.println("\n보너스 번호를 입력해 주세요.");
     }
 
-    public void printLottoStatistics(List<Entry<Rank, Long>> rankCounts) {
-        for (Entry<Rank, Long> rankCount : rankCounts) {
+    public void printLottoStatistics(LottoStatistics lottoStatistics) {
+        for (Entry<Rank, Long> rankCount : lottoStatistics.getRankCounts()) {
             Rank rank = rankCount.getKey();
             Long count = rankCount.getValue();
 
@@ -46,8 +47,8 @@ public class OutputView {
         }
     }
 
-    public void printRateOfReturn(double rateOfReturn) {
-        System.out.println("총 수익률은 " + rateOfReturn + "%입니다.");
+    public void printRateOfReturn(LottoStatistics lottoStatistics) {
+        System.out.printf("총 수익률은 %.1f%%입니다.\n", lottoStatistics.getRateOfReturn());
     }
 
     public void printerrorMessage(String errorMessage) {

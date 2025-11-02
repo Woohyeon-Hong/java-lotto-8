@@ -3,7 +3,6 @@ package lotto.model;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,6 +16,7 @@ class LottoStatisticsTest {
         WinningNumbers winningNumbers =
                 new WinningNumbers(List.of(1, 2, 3, 4, 5, 6), 7);
 
+        //1등: 1 개, 2등 1 개, 3등: 2 개, 4등: 3 개, 5등: 4 개
         List<Lotto> lottos = List.of(
                 new Lotto(List.of(1, 2, 3, 4, 5, 6)),       // 1등
                 new Lotto(List.of(1, 2, 3, 4, 5, 7)),       // 2등 (보너스 포함)
@@ -36,29 +36,12 @@ class LottoStatisticsTest {
     }
 
     @Test
-    void summarize_등수별_통계를_계산한다() {
+    void calculateRankCounts_당첨된_개수가_많은_순서대로_정렬하여_등수_별_당첨_횟수를_출력한다() {
         //when
-        Map<Rank, Long> rankCounts = lottoStatistics.summarize();
+        lottoStatistics.calculateRankCounts();
+        List<Entry<Rank, Long>> sorted = lottoStatistics.getRankCounts();
 
         //then
-        assertThat(rankCounts.get(Rank.FIRST)).isEqualTo(1);
-        assertThat(rankCounts.get(Rank.SECOND)).isEqualTo(1);
-        assertThat(rankCounts.get(Rank.THIRD)).isEqualTo(2);
-        assertThat(rankCounts.get(Rank.FOURTH)).isEqualTo(3);
-        assertThat(rankCounts.get(Rank.FIFTH)).isEqualTo(4);
-        assertThat(rankCounts.get(Rank.NONE)).isEqualTo(1);
-    }
-
-    @Test
-    void sortByWinningCountDescThenRankAsc_당첨된_개수가_많은_순서대로_정렬한다() {
-        //given
-        Map<Rank, Long> rankCounts = lottoStatistics.summarize();
-
-        //when
-        List<Entry<Rank, Long>> sorted = lottoStatistics.sortByWinningCountDescThenRankDesc(rankCounts);
-
-        //then
-
         // 당첨된 개수가 많은 순서대로 정렬한다.
         assertThat(sorted.get(0).getKey()).isSameAs(Rank.FIFTH);
         assertThat(sorted.get(1).getKey()).isSameAs(Rank.FOURTH);
@@ -68,6 +51,19 @@ class LottoStatisticsTest {
         assertThat(sorted.get(3).getKey()).isSameAs(Rank.NONE);
         assertThat(sorted.get(4).getKey()).isSameAs(Rank.SECOND);
         assertThat(sorted.get(5).getKey()).isSameAs(Rank.FIRST);
+    }
 
+
+    @Test
+    void calculateRateOfReturn_로또의_수익률을_계산한다() {
+        //given
+        lottoStatistics.calculateRankCounts();
+
+        //when
+        lottoStatistics.calculateRateOfReturn();
+        double rateOfReturn = lottoStatistics.getRateOfReturn();
+
+        //then
+        assertThat(rateOfReturn).isEqualTo(1.69430833333E10);
     }
 }

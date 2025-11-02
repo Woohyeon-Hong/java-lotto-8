@@ -8,13 +8,14 @@ import org.junit.jupiter.api.Test;
 
 class LottoNumberGeneratorTest {
 
-    LottoGenerator lottoGenerator = new LottoGenerator();
-
     @Test
     void generateUniqueNumbers_서로_다른_6개의_수를_반환한다() {
-        //given && when
+        //given - 10 개의 로또를 발행한다고 가정
+        LottoGenerator lottoGenerator = new LottoGenerator(10000);
+
+        //when
         List<Integer> numbers = lottoGenerator.generateUniqueNumbers();
-        
+
         //then
         assertThat(numbers.size()).isEqualTo(6);                        //6 개의 수를 반환하는지 검증
         assertThat(new HashSet<Integer>(numbers).size()).isEqualTo(6);  //6 개의 수가 서로 다른지 검증
@@ -25,12 +26,12 @@ class LottoNumberGeneratorTest {
     @Test
     void generateLottos_발행할_로또_개수를_입려받아_로또를_발행한다() {
         //given
-        int lottoCount = 6;
+        LottoGenerator lottoGenerator = new LottoGenerator(6000);
 
         //when
-        List<Lotto> lottos = lottoGenerator.generateLottos(lottoCount);
+        List<Lotto> lottos = lottoGenerator.generateLottos();
 
         //then
-        assertThat(lottos.size()).isEqualTo(lottoCount);
+        assertThat(lottos.size()).isEqualTo(6);
     }
 }

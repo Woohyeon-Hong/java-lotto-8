@@ -1,12 +1,9 @@
 package lotto;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 import lotto.model.Lotto;
 import lotto.model.LottoGenerator;
 import lotto.model.LottoStatistics;
-import lotto.model.Rank;
 import lotto.model.WinningNumbers;
 import lotto.view.InputView;
 import lotto.view.OutputView;
@@ -31,21 +28,10 @@ public class LottoController {
             List<Lotto> lottos = lottoGenerator.generateLottos();
             outputView.printLottos(lottos);
 
-            outputView.printWinningNumbersInputPrompt();
-            List<Integer> lottoNumbers = inputView.inputLottoNumbers();
+            WinningNumbers winningNumbers = requestWinningNumber();
 
-            outputView.printBonusNumberInputPrompt();
-            int bonusNumber = inputView.inputBonusNumber(lottoNumbers);
-
-            WinningNumbers winningNumbers = new WinningNumbers(lottoNumbers, bonusNumber);
-
-            LottoStatistics lottoStatistics = new LottoStatistics(winningNumbers, lottos, purchaseAmount);
-            Map<Rank, Long> rankCounts = lottoStatistics.summarize();
-            List<Entry<Rank, Long>> sortedRankedCounts = lottoStatistics.sortByWinningCountDescThenRankDesc(rankCounts);
-            outputView.printLottoStatistics(sortedRankedCounts);
-
-            double rateOfReturn = lottoStatistics.calculateRateOfReturn(rankCounts);
-            outputView.printRateOfReturn(rateOfReturn);
+            LottoStatistics statistics = computeStatistics(winningNumbers, lottos, purchaseAmount);
+            printLottoStatistics(statistics);
         } catch (IllegalArgumentException e) {
             outputView.printerrorMessage(e.getMessage());
         }
@@ -55,5 +41,28 @@ public class LottoController {
     private int requestPurchaseAmount() {
         outputView.printPurchaseAmountInputPrompt();
         return inputView.inputPurchaseAmount();
+    }
+
+    private WinningNumbers requestWinningNumber() {
+        outputView.printLottoNumbersInputPrompt();
+        List<Integer> lottoNumbers = inputView.inputLottoNumbers();
+
+        outputView.printBonusNumberInputPrompt();
+        int bonusNumber = inputView.inputBonusNumber(lottoNumbers);
+
+        WinningNumbers winningNumbers = new WinningNumbers(lottoNumbers, bonusNumber);
+        return winningNumbers;
+    }
+
+    private static LottoStatistics computeStatistics(WinningNumbers winningNumbers, List<Lotto> lottos,
+                                                     int purchaseAmount) {
+        LottoStatistics lottoStatistics = new LottoStatistics(winningNumbers, lottos, purchaseAmount);
+        lottoStatistics.compute();
+        return lottoStatistics;
+    }
+
+    private void printLottoStatistics(LottoStatistics lottoStatistics) {
+        outputView.printLottoStatistics(lottoStatistics);
+        outputView.printRateOfReturn(lottoStatistics);
     }
 }
