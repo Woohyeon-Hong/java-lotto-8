@@ -1,8 +1,12 @@
 package lotto.model;
 
+import static lotto.support.LottoRules.LOTTO_NUMBER_COUNT;
+
+import java.util.HashSet;
 import java.util.List;
 
 public class Lotto {
+
     private final List<Integer> numbers;
 
     public Lotto(List<Integer> numbers) {
@@ -11,10 +15,10 @@ public class Lotto {
     }
 
     private void validate(List<Integer> numbers) {
-        if (numbers.size() != 6) {
-            throw new IllegalArgumentException("[ERROR] 로또 번호는 6개여야 합니다.");
-        }
+        validateNumberCount(numbers);
+        validateDuplicate(numbers);
     }
+
 
     // TODO: 추가 기능 구현
     public String formatNumbers() {
@@ -29,5 +33,17 @@ public class Lotto {
 
     public boolean hasBonusNumber(int bonusNumber) {
         return numbers.contains(bonusNumber);
+    }
+
+    private static void validateNumberCount(List<Integer> numbers) {
+        if (numbers.size() != LOTTO_NUMBER_COUNT) {
+            throw new IllegalArgumentException("[ERROR] 로또 번호는" +  LOTTO_NUMBER_COUNT + "개여야 합니다.");
+        }
+    }
+
+    private static void validateDuplicate(List<Integer> numbers) {
+        if (new HashSet<>(numbers).size() < LOTTO_NUMBER_COUNT) {
+            throw new IllegalArgumentException("[ERROR] 로또 번호는 서로 달라야 합니다.");
+        }
     }
 }
