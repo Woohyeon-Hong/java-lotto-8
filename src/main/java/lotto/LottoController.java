@@ -34,6 +34,7 @@ public class LottoController {
 
     private List<Lotto> purchaseLottos() {
         int purchaseAmount = requestPurchaseAmount();
+
         LottoGenerator lottoGenerator = new LottoGenerator(purchaseAmount);
         outputView.printLottoCount(lottoGenerator.getLottoCount());
 
@@ -48,7 +49,7 @@ public class LottoController {
         List<Integer> lottoNumbers = inputView.inputLottoNumbers();
 
         outputView.printBonusNumberInputPrompt();
-        int bonusNumber = inputView.inputBonusNumber(lottoNumbers);
+        int bonusNumber = inputView.inputBonusNumber();
 
         WinningNumbers winningNumbers = new WinningNumbers(lottoNumbers, bonusNumber);
         return winningNumbers;
