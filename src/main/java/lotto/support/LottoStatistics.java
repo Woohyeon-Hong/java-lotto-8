@@ -14,6 +14,11 @@ import lotto.model.WinningNumbers;
 
 public class LottoStatistics {
 
+    private static final String UNCOMPUTED_STATISTICS_ERROR_MESSAGE =
+            "[ERROR] 당첨 통계가 아직 계산되지 않았습니다. compute() 호출이 필요합니다.";
+
+    private static final String UNCOMPUTED_RATE_OF_RETURN_ERROR_MESSAGE =
+            "[ERROR] 수익률이 아직 계산되지 않았습니다. compute() 호출이 필요합니다.";
 
     private final WinningNumbers winningNumbers;
     private final List<Lotto> lottos;
@@ -26,13 +31,21 @@ public class LottoStatistics {
         this.winningNumbers = winningNumbers;
         this.lottos = List.copyOf(lottos);
         this.purchaseAmount = purchaseAmount;
+        this.rateOfReturn = -1;
     }
 
     public List<Entry<Rank, Long>> getRankCounts() {
+        if (rankCounts == null) {
+            throw new IllegalStateException(UNCOMPUTED_STATISTICS_ERROR_MESSAGE);
+        }
         return List.copyOf(rankCounts);
     }
 
     public double getRateOfReturn() {
+        if (rateOfReturn == -1) {
+            throw new IllegalStateException(UNCOMPUTED_RATE_OF_RETURN_ERROR_MESSAGE);
+        }
+
         return rateOfReturn;
     }
 

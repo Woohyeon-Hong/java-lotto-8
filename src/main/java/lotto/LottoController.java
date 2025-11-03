@@ -27,7 +27,7 @@ public class LottoController {
             List<Lotto> lottos = purchaseLottos();
             WinningNumbers winningNumbers = drawWinningNumber();
             processLottoStatistics(winningNumbers, lottos);
-        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
             outputView.printErrorMessage(e.getMessage());
         }
 
