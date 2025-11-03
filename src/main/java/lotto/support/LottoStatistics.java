@@ -48,9 +48,7 @@ public class LottoStatistics {
 
     public void calculateRateOfReturn() {
         long totalPrize = calculateTotalPrize();
-        System.out.println("totalPrize = " + totalPrize);
         double rate = calculateRate(totalPrize);
-        System.out.println("rate = " + rate);
         rateOfReturn = roundToOneDecimal(rate);
     }
 

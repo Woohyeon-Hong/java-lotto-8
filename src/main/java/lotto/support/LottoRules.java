@@ -9,6 +9,6 @@ public final class LottoRules {
 
     public static final int ROUNDING_SCALE = 10;
 
-    public LottoRules() {
+    private LottoRules() {
     }
 }

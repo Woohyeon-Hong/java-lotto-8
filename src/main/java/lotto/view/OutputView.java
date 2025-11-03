@@ -10,8 +10,10 @@ public class OutputView {
 
     private static final String PURCHASE_AMOUNT_INPUT_PROMPT_MESSAGE = "구입금액을 입력해 주세요.";
     private static final String LOTTO_COUNT_RESULT_MESSAGE = "개를 구매했습니다.";
-    private static final String LOTTO_NUMBERS_INPUT_PROMPT_MESSAGE = "당첨 번호를 입력해 주세요.";
+    private static final String LOTTO_NUMBERS_INPUT_PROMPT_MESSAGE = "\n당첨 번호를 입력해 주세요.";
     private static final String BONUS_NUMBER_INPUT_PROMPT_MESSAGE = "\n보너스 번호를 입력해 주세요.";
+    private static final String LOTTO_STATISTICS_MESSAGE = "\n당첨 통계\n---";
+
 
     public OutputView() {
     }
@@ -39,6 +41,8 @@ public class OutputView {
     }
 
     public void printLottoStatistics(LottoStatistics lottoStatistics) {
+        System.out.println(LOTTO_STATISTICS_MESSAGE);
+
         for (Entry<Rank, Long> rankCount : lottoStatistics.getRankCounts()) {
             Rank rank = rankCount.getKey();
             Long count = rankCount.getValue();
