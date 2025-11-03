@@ -32,9 +32,9 @@ class LottoTest {
     }
 
     @Test
-    void formatNumbers_로또_번호를_문자열_형식으로_반환한다() {
+    void formatNumbers_로또_번호를_오름차순으로_정렬해_문자열로_반환한다() {
         //given
-        Lotto lotto = new Lotto(List.of(8, 21, 23, 41, 42, 43));
+        Lotto lotto = new Lotto(List.of(21, 8, 41, 23, 42, 43));
 
         //when
         String formattedNumbers = lotto.formatNumbers();

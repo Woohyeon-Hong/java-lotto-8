@@ -25,7 +25,7 @@ public class Lotto {
 
     // TODO: 추가 기능 구현
     public String formatNumbers() {
-        return numbers.toString();
+        return numbers.stream().sorted().toList().toString();
     }
 
     public int countMatchingNumbers(List<Integer> lottoNumbers) {
