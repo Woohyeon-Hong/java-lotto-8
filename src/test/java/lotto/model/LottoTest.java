@@ -26,6 +26,12 @@ class LottoTest {
     // TODO: 추가 기능 구현에 따른 테스트 코드 작성
 
     @Test
+    void 로또_번호에_1에서_45_를_벗어나는_숫자가_있으면_예외가_발생한다() {
+        assertThatThrownBy(() -> new Lotto(List.of(1, 2, 3, 4, 5, 46)))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
     void formatNumbers_로또_번호를_문자열_형식으로_반환한다() {
         //given
         Lotto lotto = new Lotto(List.of(8, 21, 23, 41, 42, 43));
