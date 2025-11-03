@@ -57,7 +57,7 @@ public class OutputView {
     }
 
     public void printRateOfReturn(LottoStatistics lottoStatistics) {
-        System.out.printf("총 수익률은 %.1f%%입니다.\n", lottoStatistics.getRateOfReturn());
+        System.out.printf("총 수익률은 %,.1f%%입니다.\n", lottoStatistics.getRateOfReturn());
     }
 
     public void printErrorMessage(String errorMessage) {

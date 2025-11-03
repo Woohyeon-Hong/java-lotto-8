@@ -46,19 +46,26 @@ public class LottoController {
     }
 
     private WinningNumbers drawWinningNumber() {
-        outputView.printLottoNumbersInputPrompt();
-        List<Integer> lottoNumbers = inputView.inputLottoNumbers();
-
-        outputView.printBonusNumberInputPrompt();
-        int bonusNumber = inputView.inputBonusNumber();
-
-        WinningNumbers winningNumbers = new WinningNumbers(lottoNumbers, bonusNumber);
-        return winningNumbers;
+        List<Integer> lottoNumbers = requestLottoNumbers();
+        int bonusNumber = requestBonusNumber();
+        return new WinningNumbers(lottoNumbers, bonusNumber);
     }
 
     private PurchaseAmount requestPurchaseAmount() {
         outputView.printPurchaseAmountInputPrompt();
         return inputView.inputPurchaseAmount();
+    }
+
+    private List<Integer> requestLottoNumbers() {
+        outputView.printLottoNumbersInputPrompt();
+        List<Integer> lottoNumbers = inputView.inputLottoNumbers();
+        return lottoNumbers;
+    }
+
+    private int requestBonusNumber() {
+        outputView.printBonusNumberInputPrompt();
+        int bonusNumber = inputView.inputBonusNumber();
+        return bonusNumber;
     }
 
     private void processLottoStatistics(WinningNumbers winningNumbers, List<Lotto> lottos) {
