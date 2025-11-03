@@ -4,13 +4,14 @@ import camp.nextstep.edu.missionutils.Randoms;
 import java.util.ArrayList;
 import java.util.List;
 import lotto.model.Lotto;
+import lotto.model.PurchaseAmount;
 
 public class LottoGenerator {
 
     private final int lottoCount;
 
-    public LottoGenerator(int purchaseAmount) {
-        this.lottoCount = purchaseAmount / LottoRules.LOTTO_PRICE;
+    public LottoGenerator(PurchaseAmount purchaseAmount) {
+        this.lottoCount = purchaseAmount.getValue() / LottoRules.LOTTO_PRICE;
     }
 
     public int getLottoCount() {

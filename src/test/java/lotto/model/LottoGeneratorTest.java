@@ -7,12 +7,12 @@ import java.util.List;
 import lotto.support.LottoGenerator;
 import org.junit.jupiter.api.Test;
 
-class LottoNumberGeneratorTest {
+class LottoGeneratorTest {
 
     @Test
     void generateUniqueNumbers_서로_다른_6개의_수를_반환한다() {
         //given - 10 개의 로또를 발행한다고 가정
-        LottoGenerator lottoGenerator = new LottoGenerator(10000);
+        LottoGenerator lottoGenerator = new LottoGenerator(new PurchaseAmount(10000));
 
         //when
         List<Integer> numbers = lottoGenerator.generateUniqueNumbers();
@@ -27,7 +27,7 @@ class LottoNumberGeneratorTest {
     @Test
     void generateLottos_발행할_로또_개수를_입려받아_로또를_발행한다() {
         //given
-        LottoGenerator lottoGenerator = new LottoGenerator(6000);
+        LottoGenerator lottoGenerator = new LottoGenerator(new PurchaseAmount(6000));
 
         //when
         List<Lotto> lottos = lottoGenerator.generateLottos();

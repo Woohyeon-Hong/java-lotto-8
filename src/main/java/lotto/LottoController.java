@@ -4,6 +4,7 @@ import static lotto.support.LottoRules.LOTTO_PRICE;
 
 import java.util.List;
 import lotto.model.Lotto;
+import lotto.model.PurchaseAmount;
 import lotto.support.LottoGenerator;
 import lotto.support.LottoStatistics;
 import lotto.model.WinningNumbers;
@@ -33,7 +34,7 @@ public class LottoController {
     }
 
     private List<Lotto> purchaseLottos() {
-        int purchaseAmount = requestPurchaseAmount();
+        PurchaseAmount purchaseAmount = requestPurchaseAmount();
 
         LottoGenerator lottoGenerator = new LottoGenerator(purchaseAmount);
         outputView.printLottoCount(lottoGenerator.getLottoCount());
@@ -55,7 +56,7 @@ public class LottoController {
         return winningNumbers;
     }
 
-    private int requestPurchaseAmount() {
+    private PurchaseAmount requestPurchaseAmount() {
         outputView.printPurchaseAmountInputPrompt();
         return inputView.inputPurchaseAmount();
     }

@@ -12,39 +12,6 @@ class InputViewTest {
     InputView inputView = new InputView();
 
     @Test
-    void validatePurchaseAmount_1000의_배수가_입력되면_예외가_발생하지_않는다() {
-        //given
-        int[] correctPurchaseAmounts = {
-                1000,
-                2000,
-                10000,
-                11000
-        };
-
-        //when && then
-        Arrays.stream(correctPurchaseAmounts)
-                .forEach(correctPurchaseAmount ->
-                        inputView.validatePurchaseAmount(correctPurchaseAmount));
-    }
-
-    @Test
-    void validatePurchaseAmount_1000의_배수가_아니거나_자연수가_아닌_값이_입력되면_예외가_발생한다() {
-        //given
-        int[] wrongPurchaseAmounts = {
-                1001,   //1000의 배수 x
-                0,      //0
-                -1000   //음수
-        };
-
-        //when && then
-        Arrays.stream(wrongPurchaseAmounts)
-                .forEach(correctPurchaseAmount ->
-                        assertThatThrownBy(() ->
-                                inputView.validatePurchaseAmount(correctPurchaseAmount)));
-    }
-
-
-    @Test
     void parseInteger_숫자가_입력되면_정상적으로_파싱된다() {
         //given
         String naturalNumberInput = "1000";
