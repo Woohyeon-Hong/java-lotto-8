@@ -4,12 +4,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.Arrays;
-import java.util.List;
 import org.junit.jupiter.api.Test;
 
-class InputViewTest {
-
-    InputView inputView = new InputView();
+class InputParserTest {
 
     @Test
     void parseInteger_숫자가_입력되면_정상적으로_파싱된다() {
@@ -17,7 +14,7 @@ class InputViewTest {
         String naturalNumberInput = "1000";
 
         //when
-        int purchaseAmount = inputView.parseInteger(naturalNumberInput);
+        int purchaseAmount = InputParser.parseInteger(naturalNumberInput);
 
         //then
         assertThat(purchaseAmount).isEqualTo(1000);
@@ -37,7 +34,7 @@ class InputViewTest {
         Arrays.stream(wrongs)
                 .forEach(wrong ->
                         assertThatThrownBy(() ->
-                                inputView.parseInteger(wrong))
-                                    .isInstanceOf(IllegalArgumentException.class));
+                                InputParser.parseInteger(wrong))
+                                .isInstanceOf(IllegalArgumentException.class));
     }
 }

@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import lotto.model.Lotto;
 import lotto.model.PurchaseAmount;
-import lotto.support.LottoGenerator;
 import org.junit.jupiter.api.Test;
 
 class LottoGeneratorTest {
